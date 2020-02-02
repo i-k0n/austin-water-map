@@ -17,7 +17,7 @@ const Map = () => {
     return (
         <ReactMapGL 
             {...viewport}
-            width="calc(90vw - 2px)"
+            width="67%"
             height="50vh"
             mapStyle='mapbox://styles/mapbox/outdoors-v9'
             onViewportChange={setViewport}
