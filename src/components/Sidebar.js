@@ -1,4 +1,5 @@
 import React from 'react';
+import LocationList from './LocationList'
 
 export default function Sidebar() {
     return (
@@ -6,7 +7,7 @@ export default function Sidebar() {
             <div className="heading">
                 <h1>Locations</h1>
             </div>
-            <div id="locations" className="locations"></div>
+            <LocationList />
         </div>
     )
 }
