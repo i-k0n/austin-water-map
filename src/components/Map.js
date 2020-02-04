@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import ReactMapGL from 'react-map-gl';
+import ReactMapGL, { Marker, FlyToInterpolator, Popup } from 'react-map-gl';
+import * as siteList from '../data/barton-creek-hotspots.json'
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_KEY;
+const sitesArray = siteList.default.locations;
 
 const Map = () => {
     const [viewport, setViewport] = useState({
@@ -12,8 +14,8 @@ const Map = () => {
         pitch: 0
       });
 
+    const svg = "../swimming.svg"
 
-    
     return (
         <ReactMapGL 
             {...viewport}
@@ -22,7 +24,27 @@ const Map = () => {
             mapStyle='mapbox://styles/mapbox/outdoors-v9'
             onViewportChange={setViewport}
             mapboxApiAccessToken={MAPBOX_TOKEN}
-        />
+        >
+            {// loop through locations to produce location list
+            sitesArray.map(site => {
+                const { siteNum } = site.properties;
+                const coords = site.geometry.coordinates;
+                // console.log("coords: ", coords[0], coords[1])
+                // console.log("name: ", name);
+                // console.log("description: ", description);
+                return (
+                    <Marker key={siteNum} latitude={coords[1]} longitude={coords[0]} offsetLeft={-9} offsetTop={-9}>
+                        <button className="marker-btn">
+                            <img src={svg} alt="icon" />
+                        </button>
+                    </Marker>
+                )
+            })}
+            
+            
+        </ReactMapGL>
+
+        
     )
 }
 
