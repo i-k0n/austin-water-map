@@ -6,7 +6,7 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_KEY;
 const sitesArray = siteList.default.locations;
 
 const Map = () => {
-    const [viewport, setViewport] = useState({
+    const [viewport, updateViewport] = useState({
         latitude: 30.25844534968869,
         longitude: -97.80411406405295,
         zoom: 11,
@@ -16,17 +16,19 @@ const Map = () => {
 
     const svg = "../swimming.svg"
 
+    
+
     return (
         <ReactMapGL 
             {...viewport}
             width="67%"
             height="50vh"
             mapStyle='mapbox://styles/mapbox/outdoors-v9'
-            onViewportChange={setViewport}
+            onViewportChange={updateViewport}
             mapboxApiAccessToken={MAPBOX_TOKEN}
         >
             {// loop through locations to produce location list
-            sitesArray.map(site => {
+            sitesArray.map((site, i) => {
                 const { siteNum } = site.properties;
                 const coords = site.geometry.coordinates;
                 // console.log("coords: ", coords[0], coords[1])
